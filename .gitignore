@@ -1,0 +1,9 @@
+venv
+.idea
+.DS_Store
+__pycache__
+*.sqlite3
+*.pem
+file_buffer/
+file_buffer_*/
+download_imgs_bing/

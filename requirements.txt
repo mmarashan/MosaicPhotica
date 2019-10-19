@@ -1,0 +1,13 @@
+# load image
+urllib3
+beautifulsoup4
+
+scikit-image
+
+pillow
+
+# flask
+# gunicorn
+imageio
+
+instaloader
