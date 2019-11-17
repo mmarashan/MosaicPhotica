@@ -216,10 +216,10 @@ def build_mosaic(target_image: PIL.Image.Image,
 '''
 def create_mosaic(img_path: str,
                   source_dirs: List[str],
-                  target_path: str,
+                  name_prefix: str,
                   cell_size: int = 64,
-                  resize_factor: float = 0.1,
-                  ukrup_field_max_percent: float = 0.1,
+                  resize_factors_variants: List = [],
+                  ukrup_field_max_percent_variants: list = [],
                   not_ukrup_fields: List[Tuple] = []
                   ) -> None:
     """
@@ -237,17 +237,6 @@ def create_mosaic(img_path: str,
     try:
 
         LOGGER.debug("IN create_mosaic: INSIDE")
-
-        # сделали resize
-        target_image: PIL.Image = resize_img(
-            img_path,
-            resize_factor=resize_factor,
-            is_save=False
-        )
-
-        if target_image is None:
-            LOGGER.error("Cannot open target image! Check path!!!")
-            raise Exception("No image under path {0} ".format(img_path))
 
         LOGGER.debug("IN create_mosaic: PROCESS TARGET")
 
@@ -267,11 +256,26 @@ def create_mosaic(img_path: str,
         LOGGER.debug("IN create_mosaic: PROCESS build_batch_images {0}".format(source_images))
         LOGGER.debug("IN create_mosaic: START BUILD")
 
-        image = build_mosaic(target_image, source_images,
-                             ukrup_field_max_percent = ukrup_field_max_percent,
-                             cell_size= cell_size, not_ukrup_fields = not_ukrup_fields)
-        if image is not None:
-            image.save(target_path)
+        for resize_factor in resize_factors_variants:
+            for ukrup_field_max_percent in ukrup_field_max_percent_variants:
+
+                target_path = "./" + name_prefix + "_" + str(resize_factor) + "_" + str(
+                    ukrup_field_max_percent) + ".jpg"
+                LOGGER.debug("IN create_mosaic: Image "+target_path)
+
+                # сделали resize
+                target_image: PIL.Image = resize_img(
+                    img_path,
+                    resize_factor=resize_factor,
+                    is_save=False
+                )
+
+                image = build_mosaic(target_image, source_images,
+                                     ukrup_field_max_percent = ukrup_field_max_percent,
+                                     cell_size= cell_size, not_ukrup_fields = not_ukrup_fields)
+
+                if image is not None:
+                    image.save(target_path)
 
     except Exception as e:
         LOGGER.debug("Exception in create_mosaic: {0}".format(traceback.format_exc()))
