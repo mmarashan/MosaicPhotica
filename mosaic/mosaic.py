@@ -244,14 +244,17 @@ def create_mosaic(img_path: str,
         source_images: List[MosiaicSourceImage] = []
         for index, source_dir in enumerate(source_dirs):
             for name in os.listdir(source_dir):
-                path = os.path.join(source_dir, name)
-                if '.DS_Store' in name:
-                    continue
-                if not (name.endswith(".png") or name.endswith(".jpg")):
-                    continue
-                LOGGER.debug("Append source image: "+path+"; priority "+str(index))
-                img: MosiaicSourceImage = MosiaicSourceImage(path, cell_size, priority=index)
-                source_images.append(img)
+                try:
+                    path = os.path.join(source_dir, name)
+                    if '.DS_Store' in name:
+                        continue
+                    if not (name.endswith(".png") or name.endswith(".jpg")):
+                        continue
+                    LOGGER.debug("Append source image: "+path+"; priority "+str(index))
+                    img: MosiaicSourceImage = MosiaicSourceImage(path, cell_size, priority=index)
+                    source_images.append(img)
+                except Exception as e:
+                    LOGGER.warning("Error when read image "+str(name)+str(e))
 
         LOGGER.debug("IN create_mosaic: PROCESS build_batch_images {0}".format(source_images))
         LOGGER.debug("IN create_mosaic: START BUILD")

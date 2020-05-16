@@ -11,3 +11,6 @@ pillow
 imageio
 
 instaloader
+
+pyTelegramBotAPI
+PySocks

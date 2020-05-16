@@ -3,15 +3,15 @@ from mosaic.mosaic import create_mosaic
 
 THIS_FILE_PATH = os.path.dirname(os.path.realpath(__file__))
 
-img_path = "/home/maxim/Desktop/greenpeace.jpg"
-source_dirs = ["/home/maxim/pho_mos/greenpeaceru"]
-name_prefix = "greenpeace"
+img_path = "/home/maxim/Desktop/2020.jpeg"
+source_dirs = ["/home/maxim/Desktop/2020"]
+name_prefix = "2020"
 
-not_ukrup_fields=[(0.1, 0.0, 0.0, 0.9)]
-cell_size=32
+not_ukrup_fields = []
+cell_size = 32
 
-resize_factors_variants = [0.05, 0.06, 0.07]
-ukrup_field_max_percent_variants = [0.06, 0.08, 0.1]
+resize_factors_variants = [0.18, 0.2]
+ukrup_field_max_percent_variants = [0.08, 0.15]
 
 
 create_mosaic(
