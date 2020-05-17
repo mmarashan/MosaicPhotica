@@ -14,3 +14,5 @@ instaloader
 
 pyTelegramBotAPI
 PySocks
+GoogleNews
+tqdm

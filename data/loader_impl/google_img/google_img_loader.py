@@ -41,7 +41,7 @@ class GoogleLoader(Loader):
             link, Type = json.loads(a.text)["ou"], json.loads(a.text)["ity"]
             images_list.append((link, Type))
 
-        LOGGER.debug("There are total" + str(len(images_list)) + "images")
+        LOGGER.debug("There are total " + str(len(images_list)) + " images")
 
         # create dir
         if not os.path.exists(save_path):
